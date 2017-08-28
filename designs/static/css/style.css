@@ -89,14 +89,14 @@ nav a:hover {
 
 
 /* Form styles */
-.form-container {
+.container {
     background: #2e0e4b;
     color: #fff;
     padding: 50px 0;
     height: 100vh;
 }
 
-.form-container *{
+.container *{
     box-sizing: border-box;
 }
 
