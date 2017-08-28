@@ -21,11 +21,38 @@
         </nav>
 
         <div class="container">
+            <div class="dash-header">
+                <h1>Shopping List Dashboard</h1>
+            </div>
             <form>
                 <ul class="flex-outer">
-                    <input type="te" id="username" placeholder="Enter your usename here">
+                    <li class="flex-inner">
+                        <input type="text" id="username" placeholder="Add new shopping list">
+                        <button type="submit">Submit</button>
+                    </li>
                 </ul>
             </form>
+
+            <div class="dash-table">
+                <h1>My Shopping Lists</h1>
+                <table class="table">
+                    <tr>
+                        <th>Shopping List Name</th>
+                    </tr>
+                    <tr>
+                        <td>Shopping list 1</td>
+                        <td class="edit-buttons"><button class="edit">Edit</button><button class="delete">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Shopping list 1</td>
+                        <td class="edit-buttons"><button class="edit">Edit</button><button class="delete">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Shopping list 1</td>
+                        <td class="edit-buttons"><button class="edit">Edit</button><button class="delete">Delete</button></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </body>
