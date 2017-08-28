@@ -243,6 +243,10 @@ button.edit {
     background: #6F9;
 }
 
+button.buy {
+    background: #C8D566;
+}
+
 button.delete {
     background: #F69;
 }
