@@ -1,6 +1,10 @@
-html {
-    font-family: Fira code, Geneva, Tahoma, sans-serif;
+/* Global Styles */
+* {
+    font-family: 'fira code', Verdana;
+    margin: 0;
 }
+
+
 h1 {
     font-size: 35px;
 }
@@ -10,28 +14,160 @@ h4 {
 }
 
 header {
-    color: 	#0e4b2e;
-    background: url('../img/shopping.jpg') no-repeat;
+    color: 	#2e0e4b;
+    background: url('../img/shopping.jpg') no-repeat center;
     background-size: cover;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 button {
-    width: 90px;
-    height: 40px;
-    background-color: #2e0e4b;
-    color: white;
-    opacity: .8;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 1s ease 0s;
-}
+    margin-left: auto;
+    padding: 8px 16px;
+    border: none;
+    background: #0e4b2e;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
+  }
 
 button:hover {
-    background-color: #0e4b2e;;
+    background-color: #0e4b2e;
     color: white;
     font-weight: bolder;
+}
+
+
+.wrapper {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/*  menu base styles */
+
+nav {
+    background: #0e4b2e;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul a {
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    display: block;
+    padding: 10px;
+}
+
+nav a:hover {
+    background-color: #2e0e4b;
+}
+
+@media screen and (min-width: 768px) {
+    
+        nav ul {
+            display: flex;
+        }
+    
+        nav li {
+            flex: 1 1 0;
+        }
+    
+        nav {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+
+/* Form styles */
+.form-container {
+    background: #2e0e4b;
+    color: #fff;
+    padding: 50px 0;
+    height: 100vh;
+}
+
+.form-container *{
+    box-sizing: border-box;
+}
+
+
+.flex-outer,
+.flex-inner {
+  list-style-type: none;
+  padding: 0;
+}
+
+.flex-outer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.flex-outer li,
+.flex-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.flex-inner {
+  padding: 0 8px;
+  justify-content: space-between;  
+}
+
+.flex-outer > li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.flex-outer li label,
+.flex-outer li p {
+  padding: 8px;
+  font-weight: 300;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.flex-outer > li > label,
+.flex-outer li p {
+  flex: 1 0 120px;
+  max-width: 220px;
+}
+
+.flex-outer > li > label + *,
+.flex-inner {
+  flex: 1 0 220px;
+}
+
+.flex-outer li p {
+  margin: 0;
+}
+
+.flex-outer li input:not([type='checkbox']),
+.flex-outer li textarea {
+  padding: 15px;
+  border: none;
+}
+
+.flex-outer li button {
+  margin-left: auto;
+  padding: 8px 16px;
+  border: none;
+  background: #0e4b2e;
+  color: #f2f2f2;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+  border-radius: 2px;
+}
+
+.flex-inner li {
+  width: 100px;
 }
