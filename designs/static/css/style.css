@@ -1,0 +1,277 @@
+/* Global Styles */
+
+* {
+    font-family: 'fira code', Verdana;
+    margin: 0;
+}
+
+h1 {
+    font-size: 35px;
+}
+
+h4 {
+    font-size: 16px
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul a {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding: 10px;
+}
+
+header {
+    color: #2e0e4b;
+    background: url('../img/shopping.jpg') no-repeat center;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    margin-left: auto;
+    padding: 8px 16px;
+    border: none;
+    background: #0e4b2e;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
+}
+
+button:hover {
+    background-color: #0e4b2e;
+    color: white;
+    font-weight: bolder;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+
+/*  menu base styles */
+
+nav {
+    background: #0e4b2e;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul a {
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    display: block;
+    padding: 10px;
+}
+
+nav a:hover {
+    background-color: #2e0e4b;
+}
+
+@media screen and (min-width: 768px) {
+    nav ul {
+        display: flex;
+    }
+    nav li {
+        flex: 1 1 0;
+    }
+    nav {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
+/* Form styles */
+
+.container {
+    background: #2e0e4b;
+    color: #fff;
+    padding: 50px 0;
+    height: 100vh;
+}
+
+.container * {
+    box-sizing: border-box;
+}
+
+.flex-outer,
+.flex-inner {
+    list-style-type: none;
+    padding: 0;
+}
+
+.flex-outer {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.flex-outer li,
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.flex-inner {
+    display: block;
+    text-align: center;
+}
+
+.flex-outer>li:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.flex-outer li label,
+.flex-outer li p {
+    padding: 8px;
+    font-weight: 300;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+}
+
+.flex-outer>li>label,
+.flex-outer li p {
+    flex: 1 0 120px;
+    max-width: 220px;
+}
+
+.flex-outer>li>label+*,
+.flex-inner {
+    flex: 1 0 220px;
+}
+
+.flex-outer li p {
+    margin: 0;
+}
+
+.flex-outer li input:not([type='checkbox']),
+.flex-outer li textarea {
+    padding: 15px;
+    border: none;
+}
+
+.flex-outer li button {
+    margin-left: auto;
+    padding: 8px 16px;
+    border: none;
+    background: #0e4b2e;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
+}
+
+.flex-inner li {
+    width: 100px;
+}
+
+
+/* Dahboard styles */
+
+.dash-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dash-header h1 {
+    margin-bottom: 50px;
+    width: 500px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+.dash-table {
+    display: block;
+    width: 700px;
+    color: #0e4b2e;
+    background-color: #fff;
+    margin-top: 50px;
+    text-align: center;
+    margin-left: 100px;
+    border-radius: 10px;
+}
+
+table.table {
+    width: 100%;
+
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 0.25em;
+}
+
+.table tr {
+    border-bottom: 1px solid #DDD;
+}
+
+td.edit-buttons {
+    text-align: right;
+}
+
+button {
+    border-radius: 3px;
+    border: none;
+    margin: 0 0.25em;
+    transition: all 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 4px rgba(3, 3, 3, 0.8);
+    opacity: 0.9;
+}
+
+button.edit {
+    background: #6F9;
+}
+
+button.buy {
+    background: #C8D566;
+}
+
+button.delete {
+    background: #F69;
+}
+
+@media screen and (max-width: 800px) {
+    tr {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0.5em 0;
+        border: 1px solid rgba(3, 3, 3, 0.2);
+    }
+    td,
+    th {
+        flex: 1 1 150px;
+        border: 0.5px solid rgba(3, 3, 3, 0.2);
+    }
+    td.edit-buttons,
+    td.empty {
+        /*flex: 1 0 90%;
+    text-align: center;*/
+    }
+}
+
+* {
+    box-model: border-box;
+    font-family: 'futura';
+}
