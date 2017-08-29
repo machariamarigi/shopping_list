@@ -31,8 +31,6 @@ def signup():
     """Method to handle sign up of users"""
     form = SignUpForm()
     if form.validate_on_submit():
-        # TODO: Hash passwords
-        # hash_password = generate_password_hash(form.password.data)
         store.add_user(form.username.data, form.email.data, form.password.data)
         flash('You have successfully registered! You may now login.')
         return redirect(url_for('auth.login'))
