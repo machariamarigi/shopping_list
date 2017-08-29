@@ -6,6 +6,6 @@ from . import landing_page
 
 
 @landing_page.route('/')
-def landing_pagepage():
+def landing():
     """Render the landing_page template on the / route"""
     return render_template('index.html')
