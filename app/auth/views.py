@@ -20,7 +20,7 @@ def login():
                     session['logged_in'] = True
                     return redirect(
                         url_for(
-                            'profile.profilepage',
+                            'dashboard.dashboard_page',
                             logged_in_user=logged_in_user['username']))
 
     return render_template('auth/login.html', title='login', form=form)
@@ -43,4 +43,4 @@ def signup():
 def logout():
     """Log out a user"""
     session.pop('logged_in', None)
-    return redirect(url_for('home.homepage'))
+    return redirect(url_for('landing_page.landing'))
