@@ -3,6 +3,9 @@
 from flask import Flask
 
 from config import app_config
+from models import Storage
+
+store = Storage()
 
 
 def create_app(config_name):
