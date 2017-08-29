@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/machariamarigi/shopping_list.svg?branch=master)](https://travis-ci.org/machariamarigi/shopping_list) [![Coverage Status](https://coveralls.io/repos/github/machariamarigi/shopping_list/badge.svg?branch=ch-tdd-setup)](https://coveralls.io/github/machariamarigi/shopping_list?branch=ch-tdd-setup)
+
 # Shopping List
 
 The innovative Shopping list app is an application that allows users to record and share things they want to spend money on meeting the needs of keeping track of their shopping lists.
