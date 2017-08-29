@@ -18,4 +18,10 @@ def create_app(config_name):
     from .landing_page import landing_page as landing_page_blueprint
     app.register_blueprint(landing_page_blueprint)
 
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint)
+
+    from .dashboard import dashboard as dashboard_blueprint
+    app.register_blueprint(dashboard_blueprint)
+
     return app

@@ -27,7 +27,7 @@ def login():
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
-def signup():
+def register():
     """Method to handle sign up of users"""
     form = SignUpForm()
     if form.validate_on_submit():
