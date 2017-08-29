@@ -16,5 +16,6 @@ class TestUserModel(TestCase):
         self.assertEqual(self.user_instance.get_details(), {
             "username": "mash",
             "email": "mash@mash.com",
-            "password": "mash_pass"
+            "password": "mash_pass",
+            "shopping_lists": []
         })
