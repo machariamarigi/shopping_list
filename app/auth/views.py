@@ -34,7 +34,7 @@ def signup():
         store.add_user(form.username.data, form.email.data, form.password.data)
         flash('You have successfully registered! You may now login.')
         return redirect(url_for('auth.login'))
-    return render_template('auth/signup.html', form=form, title='Sign Up')
+    return render_template('auth/register.html', form=form, title='Register')
 
 
 @auth.route('/logout')
