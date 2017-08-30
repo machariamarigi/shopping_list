@@ -26,7 +26,7 @@ class User():
 
 
 class ShoppingList(object):
-    """Class modeling a bucket list with CRUD operations"""
+    """Class modeling a shopping list with CRUD operations"""
 
     def __init__(self, name, items=None):
         """Create shoppinglist item"""
@@ -43,6 +43,25 @@ class ShoppingList(object):
 
     def get_details(self):
         """Method to return the shoppinglist details"""
+        return self.details
+
+
+class ShoppingItem(object):
+    """Class modeling a shopping items with CRUD operations"""
+
+    def __init__(self, name, quantity, bought=False):
+        self.name = name
+        self.quantity = quantity
+        self.bought = bought
+
+        self.details = {
+            'name': self.name,
+            'quantity': self.quantity,
+            'bought': self.bought
+        }
+
+    def get_details(self):
+        """Method to return the shoppingitems details"""
         return self.details
 
 

@@ -55,7 +55,7 @@ class TestShoppingItemModel(TestCase):
         self.assertEqual(
             self.shoppingitem_instance.get_details(),
             {
-                "name": "groceries",
+                "name": "carrots",
                 "quantity": 5,
                 "bought": False
             },
@@ -101,7 +101,8 @@ class TestStorage(TestCase):
             {
                 "id": 1,
                 "name": "hardware",
-                "items": []
+                "items": [],
+                'bought': False
             }, "Item not found"
         )
 
@@ -136,7 +137,8 @@ class TestStorage(TestCase):
             {
                 "id": 1,
                 "name": "sun glasses",
-                "items": []
+                "items": [],
+                'bought': False
             }
         )
 
