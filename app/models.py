@@ -130,3 +130,15 @@ class Storage():
         for item in single_user['shopping_lists']:
             if item['id'] == int(item_id):
                 single_user['shopping_lists'].remove(item)
+
+    def add_shoppingitems(self, user_id, shoppinglist_id, name, quantity):
+        new_shoppingitem = ShoppingItem(name, quantity)
+        new_shoppingitem_details = new_shoppingitem.get_details()
+        user = self.get_single_user(user_id)
+        for shopinglist in user['shopping_lists']:
+            if shopinglist['id'] == shoppinglist_id:
+                curr_shopinglist = shopinglist
+                for item in curr_shopinglist['items']:
+                    if new_shoppingitem_details['id'] == item['id']:
+                        new_shoppingitem_details['id'] = new_shoppingitem_details['id'] + 1
+                curr_shopinglist['items'].append(new_shoppingitem_details)

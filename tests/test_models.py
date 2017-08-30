@@ -78,7 +78,7 @@ class TestStorage(TestCase):
         self.test_store.add_user('test', 'test@test.com', 'test')
         final_users = len(self.test_store.users)
         self.assertEquals(
-            5, final_users-initial_users, 'User not created')
+            7, final_users-initial_users, 'User not created')
 
     def test_add_shoppinglist(self):
             """Test for adding  shoppinglist functionality"""
@@ -94,15 +94,14 @@ class TestStorage(TestCase):
     def test_get_shoppinglist(self):
         """Test whether we can get a single shoppinglist"""
         self.test_store.add_user('mash', 'mash@mash2.com', 'mash_pass')
-        self.test_store.add_shoppinglist(3, "hardware")
-        test_item = self.test_store.get_shoppinglist(3, 1)
+        self.test_store.add_shoppinglist(2, "hardware")
+        test_item = self.test_store.get_shoppinglist(2, 1)
         self.assertEquals(
             test_item,
             {
                 "id": 1,
                 "name": "hardware",
                 "items": [],
-                'bought': False
             }, "Item not found"
         )
 
@@ -123,7 +122,7 @@ class TestStorage(TestCase):
     def test_add_shoppingitem(self):
         initial_shoppingItems = len(self.test_shoppinglist['items'])
         self.test_store.add_shoppingitems(1, 1, 'sun glasses', 1)
-        final_shoppingItems = len(self.test_add_shoppinglist['items'])
+        final_shoppingItems = len(self.test_shoppinglist['items'])
         self.assertEquals(
             1,
             final_shoppingItems - initial_shoppingItems,
