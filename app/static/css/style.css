@@ -87,6 +87,7 @@ nav ul a {
 
 nav a:hover {
     background-color: #2e0e4b;
+    text-decoration: none;
 }
 
 @media screen and (min-width: 768px) {

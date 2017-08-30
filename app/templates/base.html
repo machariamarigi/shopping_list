@@ -16,7 +16,8 @@
             <li><a href="">Home</a></li>
         </ul>
         <ul class="right">
-            <li><a href="" class="fb">Register</a></li>
+            <li><a href="{{ url_for('auth.register') }}" class="fb">Register</a></li>
+            <li><a href="{{ url_for('auth.login') }}" class="fb">Login</a></li>
         </ul>
     </nav>
     {% block body %}
