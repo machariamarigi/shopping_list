@@ -67,6 +67,10 @@ class TestStorage(TestCase):
 
     def setUp(self):
         self.test_store = Storage()
+        self.test_store.add_user('test', 'test6@test.com', 'test')
+        self.test_user = self.test_store.get_single_user(1)
+        self.test_store.add_shoppinglist(1, 'Holiday Shopping')
+        self.test_shoppinglist = self.test_store.get_shoppinglist(1, 1)
 
     def test_create_user(self):
         """Test if we can add new users into the system"""
@@ -74,7 +78,7 @@ class TestStorage(TestCase):
         self.test_store.add_user('test', 'test@test.com', 'test')
         final_users = len(self.test_store.users)
         self.assertEquals(
-            2, final_users-initial_users, 'User not created')
+            5, final_users-initial_users, 'User not created')
 
     def test_add_shoppinglist(self):
             """Test for adding  shoppinglist functionality"""
@@ -114,3 +118,12 @@ class TestStorage(TestCase):
             initial_shoppinglists-final_shoppinglists,
             'Items not removed'
         )
+
+    def test_add_shoppingitem(self):
+        initial_shoppingItems = len(self.test_shoppinglist['items'])
+        self.test_store.add_shoppingitems(1, 1, 'sun glasses', 1)
+        final_shoppingItems = len(self.test_add_shoppinglist['items'])
+        self.assertEquals(
+            1,
+            final_shoppingItems - initial_shoppingItems,
+            'Shopping Item not created properly')
