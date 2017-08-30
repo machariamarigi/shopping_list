@@ -13,6 +13,7 @@ class TestAppRun(TestCase):
         """Create test instance of the application"""
         config_name = 'testing'
         app = create_app(config_name)
+        app.config['SECRET_KEY'] = 'sekrit!'
         return app
 
     def test_index(self):
@@ -39,7 +40,15 @@ class TestAppRun(TestCase):
         response = self.client.get(url_for('auth.login'))
         self.assert200(response)
 
-    def test_signup_page_without_auth(self):
+    def test_register_page_without_auth(self):
         """Test the loading of signup page"""
-        response = self.client.get(url_for('auth.signup'))
+        response = self.client.get(url_for('auth.register'))
         self.assert200(response)
+
+    def test_dashboard_view(self):
+        """Test authentication"""
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['logged_in'] = True
+            response = self.client.get(url_for('dashboard.dashboard_page'))
+            self.assertEqual(response.status_code, 200)
