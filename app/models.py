@@ -25,6 +25,27 @@ class User():
         return self.details
 
 
+class ShoppingList(object):
+    """Class modeling a bucket list with CRUD operations"""
+
+    def __init__(self, name, items=None):
+        """Create bucketlist item"""
+        self.name = name
+        if items is None:
+            self.items = []
+        else:
+            self.items = items
+
+        self.details = {
+            'name': self.name,
+            'items': self.items
+        }
+
+    def get_details(self):
+        """Method to return the bucketlist details"""
+        return self.details
+
+
 class Storage():
     """Class will handle volatile storage of the application's data"""
 

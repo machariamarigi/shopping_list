@@ -35,7 +35,7 @@ class TestShoppinglistModel(TestCase):
         self.assertEqual(
             self.shoppinglist_instance.get_details(),
             {
-                "name": "Holiday",
+                "name": "groceries",
                 "items": []
             },
         )
