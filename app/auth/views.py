@@ -16,12 +16,12 @@ def login():
         for user in store.users:
             if form.email.data == user['email']:
                 if form.password.data == user['password']:
-                    logged_in_user = user
+                    store.current_user = user
                     session['logged_in'] = True
+                    flash('You are logged on.')
                     return redirect(
                         url_for(
-                            'dashboard.dashboard_page',
-                            logged_in_user=logged_in_user['username']))
+                            'dashboard.dashboard_page'))
 
     return render_template('auth/login.html', title='login', form=form)
 
@@ -32,8 +32,12 @@ def register():
     form = SignUpForm()
     if form.validate_on_submit():
         store.add_user(form.username.data, form.email.data, form.password.data)
-        flash('You have successfully registered! You may now login.')
-        return redirect(url_for('auth.login'))
+        for user in store.users:
+            if form.email.data == user['email']:
+                store.current_user = user
+        session['logged_in'] = True
+        flash('You are logged on.')
+        return redirect(url_for('dashboard.dashboard_page'))
     return render_template('auth/register.html', form=form, title='Register')
 
 

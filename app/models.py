@@ -57,6 +57,8 @@ class Storage():
         'id': 0
     }]
 
+    current_user = {}
+
     def add_user(self, username, email, password):
         """Method to register users to the application"""
 
@@ -78,7 +80,7 @@ class Storage():
 
     def add_shoppinglist(self, user_id, name):
         """
-            Method to add user items to a user given the id of the
+            Method to add shoppinglists to a user given the id of the
             user
         """
         new_shoppinglist = ShoppingList(name)
