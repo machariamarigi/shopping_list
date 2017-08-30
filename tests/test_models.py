@@ -2,7 +2,7 @@
 
 from unittest import TestCase
 
-from app.models import User, Storage
+from app.models import User, Storage, ShoppingList
 
 
 class TestUserModel(TestCase):
@@ -19,6 +19,26 @@ class TestUserModel(TestCase):
             "password": "mash_pass",
             "shopping_lists": []
         })
+
+
+class TestShoppinglistModel(TestCase):
+    """ Class containing tests for ShoppingList Model """
+
+    def setUp(self):
+        self.shoppinglist_instance = ShoppingList('groceries')
+
+    def tearDown(self):
+        del self.shoppinglist_instance
+
+    def test_shoppinglist_instance(self):
+        """Test instantiation of shoppinglist objects"""
+        self.assertEqual(
+            self.shoppinglist_instance.get_details(),
+            {
+                "name": "Holiday",
+                "items": []
+            },
+        )
 
 
 class TestStorage(TestCase):
