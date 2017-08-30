@@ -146,6 +146,6 @@ class TestStorage(TestCase):
         final_shoppingItems = len(self.test_add_shoppinglist['items'])
         self.assertEquals(
             1,
-            initial_shoppinglists-final_shoppinglists,
+            initial_shoppingItems-final_shoppingItems,
             'Items not removed'
         )
