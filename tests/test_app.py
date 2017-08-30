@@ -39,7 +39,7 @@ class TestAppRun(TestCase):
         response = self.client.get(url_for('auth.login'))
         self.assert200(response)
 
-    def test_signup_page_without_auth(self):
+    def test_register_page_without_auth(self):
         """Test the loading of signup page"""
-        response = self.client.get(url_for('auth.signup'))
+        response = self.client.get(url_for('auth.register'))
         self.assert200(response)
