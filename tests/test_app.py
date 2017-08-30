@@ -45,10 +45,3 @@ class TestAppRun(TestCase):
         response = self.client.get(url_for('auth.register'))
         self.assert200(response)
 
-    def test_dashboard_view(self):
-        """Test authentication"""
-        with self.client as c:
-            with c.session_transaction() as sess:
-                sess['logged_in'] = True
-            response = self.client.get(url_for('dashboard.dashboard_page'))
-            self.assertEqual(response.status_code, 200)

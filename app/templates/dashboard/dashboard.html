@@ -1,14 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="dash-header">
+        <h1>Shopping List Dashboard</h1>
+    </div>
+    {{ wtf.quick_form(form) }}
+    <div class="dash-table">
+        <h1>My Shopping Lists</h1>
+        <table class="table">
+            <tr>
+                <th>Shopping List Name</th>
+            </tr>
+            {% for shoppinglist in shoppinglists %}
+                <tr>
+                    <td>{{ shoppinglist['name'] }}</td>
+                    <td class="edit-buttons">
+                        <button class="edit"><a href="{{ url_for('dashboard.shoppinglist_edit', sh_id=shoppinglist['id']) }}">Edit</a></button>
+                        <button class="delete"><a href="{{ url_for('dashboard.delete_shoppinglist', sh_id=shoppinglist['id']) }}">Delete</a></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
-    <h1>Logged in</h1>
-    
-</body>
-</html>
+{% endblock %}
