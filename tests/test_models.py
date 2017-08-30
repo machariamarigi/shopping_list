@@ -101,7 +101,7 @@ class TestStorage(TestCase):
             {
                 "id": 1,
                 "name": "hardware",
-                "items": [],
+                "items": []
             }, "Item not found"
         )
 
@@ -127,3 +127,25 @@ class TestStorage(TestCase):
             1,
             final_shoppingItems - initial_shoppingItems,
             'Shopping Item not created properly')
+
+    def test_get_shoppingitem(self):
+        self.test_store.add_shoppingitems(1, 1, 'sun glasses', 1)
+        test_item = self.test_store.get_shoppingitem(1, 1, 1)
+        self.assertEquals(
+            test_item,
+            {
+                "id": 1,
+                "name": "sun glasses",
+                "items": []
+            }
+        )
+
+    def test_delere_shoppingitem(self):
+        initial_shoppingItems = len(self.test_shoppinglist['items'])
+        self.test_store.remove_shoppingitem(1, 1, 1)
+        final_shoppingItems = len(self.test_add_shoppinglist['items'])
+        self.assertEquals(
+            1,
+            initial_shoppinglists-final_shoppinglists,
+            'Items not removed'
+        )
