@@ -40,17 +40,40 @@ class TestShoppinglistModel(TestCase):
             },
         )
 
+    def test_add_shoppinglist(self):
+            """Test for adding  shoppinglist functionality"""
+            self.test_store.add_user('mash', 'mash@mash1.com', 'mash_pass')
+            test_user = self.test_store.get_single_user(1)
+            initial_shoppinglists = len(test_user['items'])
+            self.test_store.add_shoppinglist(1, 'groceries')
+            final_shoppinglists = len(test_user['items'])
+            self.assertEquals(
+                1, final_shoppinglists-initial_shoppinglists,
+                'shoppinglist item not created properly')
 
-class TestStorage(TestCase):
-    """Class to test storage model"""
-
-    def setUp(self):
-        self.test_store = Storage()
-
-    def test_create_user(self):
-        """Test if we can add new users into the system"""
-        initial_users = len(self.test_store.users)
-        self.test_store.add_user('test', 'test@test.com', 'test')
-        final_users = len(self.test_store.users)
+    def test_get_shoppinglist(self):
+        """Test whether we can get a single shoppinglist"""
+        self.test_store.add_user('mash', 'mash@mash2.com', 'mash_pass')
+        self.test_store.add_shoppinglist(3, "hardware")
+        test_item = self.test_store.get_shoppinglist(3, 1)
         self.assertEquals(
-            1, final_users-initial_users, 'User not created')
+            test_item,
+            {
+                "id": 1,
+                "name": "Hardware",
+            }, "Item not found"
+        )
+
+    def test_delete_shoppinglist(self):
+        """Test to see whether we can delete a shoppinglist"""
+        self.test_store.add_user('mash', 'mash@mash3.com', 'mash_pass')
+        self.test_store.add_shoppinglist(2, "Utensils")
+        test_user = self.test_store.get_single_user(2)
+        initial_shoppinglists = len(test_user['items'])
+        self.test_store.remove_shoppinglist(2, 1)
+        final_shoppinglists = len(test_user['items'])
+        self.assertEquals(
+            1,
+            initial_shoppinglists-final_shoppinglists,
+            'Items not removed'
+        )
