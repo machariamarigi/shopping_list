@@ -8,23 +8,26 @@
         <h1>Shopping List Dashboard</h1>
     </div>
     {{ wtf.quick_form(form) }}
-    <div class="dash-table">
-        <h1>My Shopping Lists</h1>
-        <table class="table">
-            <tr>
-                <th>Shopping List Name</th>
-            </tr>
-            {% for shoppinglist in shoppinglists %}
+    {% if shoppinglists %}
+        <div class="dash-table">
+            <h1>My Shopping Lists</h1>
+            <table class="table">
                 <tr>
-                    <td><a href="{{ url_for('dashboard.view_shoppinglist', id=shoppinglist['id']) }}">{{ shoppinglist['name'] }}</a></td>
-                    <td class="edit-buttons">
-                        <button class="edit"><a href="{{ url_for('dashboard.shoppinglist_edit', sh_id=shoppinglist['id']) }}">Edit</a></button>
-                        <button class="delete"><a href="{{ url_for('dashboard.delete_shoppinglist', sh_id=shoppinglist['id']) }}">Delete</a></button>
-                    </td>
+                    <th>Shopping List Name</th>
                 </tr>
-            {% endfor %}
-        </table>
-    </div>
+                {% for shoppinglist in shoppinglists %}
+                    <tr>
+                        <td>{{ shoppinglist['name'] }}</td>
+                        <td class="edit-buttons">
+                            <button><a href="{{ url_for('dashboard.view_shoppinglist', id=shoppinglist['id']) }}">Add Items</a></button>
+                            <button class="edit"><a href="{{ url_for('dashboard.shoppinglist_edit', sh_id=shoppinglist['id']) }}">Edit</a></button>
+                            <button class="delete"><a href="{{ url_for('dashboard.delete_shoppinglist', sh_id=shoppinglist['id']) }}">Delete</a></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
