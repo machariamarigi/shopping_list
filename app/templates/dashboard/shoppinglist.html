@@ -8,7 +8,7 @@
         <h1>Shopping list - {{ shoppinglist.name }}</h1>
     </div>
     {{ wtf.quick_form(form) }}
-    <div class="dash-table">
+    <div class="dash-table text-center">
         <h1>My Shopping Lists</h1>
         <table class="table">
             <tr>
@@ -17,8 +17,8 @@
             </tr>
             {% for item in items %}
                 <tr>
-                    <td>{% if item['bought'] %}<strike> {%  endif %}<a href="">{{ item['name'] }}</a>{% if item['bought'] %} </strike>{%  endif %}</td>
-                    <td>{% if item['bought'] %}<strike> {%  endif %}<a href="">{{ item['quantity'] }}</a>{% if item['bought'] %} </strike>{%  endif %}</td>
+                    <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['name'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
+                    <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['quantity'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
                     <td class="edit-buttons">
                         {% if item['bought'] %}
                             Item Bought

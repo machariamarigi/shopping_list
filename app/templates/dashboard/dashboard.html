@@ -16,8 +16,9 @@
             </tr>
             {% for shoppinglist in shoppinglists %}
                 <tr>
-                    <td><a href="{{ url_for('dashboard.view_shoppinglist', id=shoppinglist['id']) }}">{{ shoppinglist['name'] }}</a></td>
+                    <td>{{ shoppinglist['name'] }}</td>
                     <td class="edit-buttons">
+                        <button><a href="{{ url_for('dashboard.view_shoppinglist', id=shoppinglist['id']) }}">Add Items</a></button>
                         <button class="edit"><a href="{{ url_for('dashboard.shoppinglist_edit', sh_id=shoppinglist['id']) }}">Edit</a></button>
                         <button class="delete"><a href="{{ url_for('dashboard.delete_shoppinglist', sh_id=shoppinglist['id']) }}">Delete</a></button>
                     </td>
