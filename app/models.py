@@ -158,3 +158,10 @@ class Storage():
         for item in shoppinglist['items']:
             if item['id'] == int(item_id):
                 shoppinglist['items'].remove(item)
+
+    def buy_shoppingitem(self, user_id, shoppinglist_id, item_id):
+        item = self.get_shoppingitem(user_id, shoppinglist_id, item_id)
+        if item['bought']:
+            item['bought'] = False
+        elif not item['bought']:
+            item['bought'] = True
