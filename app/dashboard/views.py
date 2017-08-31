@@ -114,3 +114,14 @@ def delete_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.remove_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
+
+
+@dashboard.route(
+        '/dashboard/shopping_list/but/<id>/<si_id>',
+        methods=['GET', 'POST']
+)
+def buy_shoppingitem(id, si_id):
+    if session['logged_in']:
+        user_id = int(store.current_user['id'])
+        store.buy_shoppingitem(user_id, int(id), int(si_id))
+        return redirect(url_for('dashboard.view_shoppinglist', id=id))

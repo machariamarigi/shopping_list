@@ -13,13 +13,18 @@
         <table class="table">
             <tr>
                 <th>Shopping List Name</th>
+                <th>Quantity</th>
             </tr>
             {% for item in items %}
                 <tr>
-                    <td><a href="">{{ item['name'] }}</a></td>
-                    <td><a href="">{{ item['quantity'] }}</a></td>
+                    <td>{% if item['bought'] %}<strike> {%  endif %}<a href="">{{ item['name'] }}</a>{% if item['bought'] %} </strike>{%  endif %}</td>
+                    <td>{% if item['bought'] %}<strike> {%  endif %}<a href="">{{ item['quantity'] }}</a>{% if item['bought'] %} </strike>{%  endif %}</td>
                     <td class="edit-buttons">
-                        <button class="edit"><a href="">Bought?</a></button>
+                        {% if item['bought'] %}
+                            Item Bought
+                        {% else %}
+                            <button><a href="{{ url_for('dashboard.buy_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Bought?</a></button>
+                        {% endif %}
                         <button class="edit"><a href="{{ url_for('dashboard.edit_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Edit</a></button>
                         <button class="delete"><a href="{{ url_for('dashboard.delete_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Delete</a></button>
                     </td>
