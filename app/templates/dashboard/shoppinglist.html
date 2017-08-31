@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container">
     <div class="dash-header">
-        <h1>Shopping List Dashboard</h1>
+        <h1>Shopping list - {{ shoppinglist.name }}</h1>
     </div>
     {{ wtf.quick_form(form) }}
     <div class="dash-table">
@@ -14,17 +14,18 @@
             <tr>
                 <th>Shopping List Name</th>
             </tr>
-            {% for shoppinglist in shoppinglists %}
+            {% for item in items %}
                 <tr>
-                    <td><a href="{{ url_for('dashboard.view_shoppinglist', id=shoppinglist['id']) }}">{{ shoppinglist['name'] }}</a></td>
+                    <td><a href="">{{ item['name'] }}</a></td>
+                    <td><a href="">{{ item['quantity'] }}</a></td>
                     <td class="edit-buttons">
-                        <button class="edit"><a href="{{ url_for('dashboard.shoppinglist_edit', sh_id=shoppinglist['id']) }}">Edit</a></button>
-                        <button class="delete"><a href="{{ url_for('dashboard.delete_shoppinglist', sh_id=shoppinglist['id']) }}">Delete</a></button>
+                        <button class="edit"><a href="">Bought?</a></button>
+                        <button class="edit"><a href="{{ url_for('dashboard.edit_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Edit</a></button>
+                        <button class="delete"><a href="{{ url_for('dashboard.delete_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Delete</a></button>
                     </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
 </div>
-
 {% endblock %}
