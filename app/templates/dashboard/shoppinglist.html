@@ -8,29 +8,31 @@
         <h1>Shopping list - {{ shoppinglist.name }}</h1>
     </div>
     {{ wtf.quick_form(form) }}
-    <div class="dash-table text-center">
-        <h1>My Shopping Lists</h1>
-        <table class="table">
-            <tr>
-                <th>Shopping List Name</th>
-                <th>Quantity</th>
-            </tr>
-            {% for item in items %}
+    {% if items %}
+        <div class="dash-table text-center">
+            <h1>My Shopping Lists</h1>
+            <table class="table">
                 <tr>
-                    <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['name'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
-                    <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['quantity'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
-                    <td class="edit-buttons">
-                        {% if item['bought'] %}
-                            Item Bought
-                        {% else %}
-                            <button><a href="{{ url_for('dashboard.buy_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Bought?</a></button>
-                        {% endif %}
-                        <button class="edit"><a href="{{ url_for('dashboard.edit_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Edit</a></button>
-                        <button class="delete"><a href="{{ url_for('dashboard.delete_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Delete</a></button>
-                    </td>
+                    <th>Shopping List Name</th>
+                    <th>Quantity</th>
                 </tr>
-            {% endfor %}
-        </table>
-    </div>
+                {% for item in items %}
+                    <tr>
+                        <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['name'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
+                        <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['quantity'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
+                        <td class="edit-buttons">
+                            {% if item['bought'] %}
+                                Item Bought
+                            {% else %}
+                                <button><a href="{{ url_for('dashboard.buy_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Bought?</a></button>
+                            {% endif %}
+                            <button class="edit"><a href="{{ url_for('dashboard.edit_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Edit</a></button>
+                            <button class="delete"><a href="{{ url_for('dashboard.delete_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Delete</a></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
