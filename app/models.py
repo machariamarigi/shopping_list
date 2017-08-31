@@ -26,7 +26,7 @@ class User():
 
 
 class ShoppingList(object):
-    """Class modeling a bucket list with CRUD operations"""
+    """Class modeling a shopping list with CRUD operations"""
 
     def __init__(self, name, items=None):
         """Create shoppinglist item"""
@@ -43,6 +43,25 @@ class ShoppingList(object):
 
     def get_details(self):
         """Method to return the shoppinglist details"""
+        return self.details
+
+
+class ShoppingItem(object):
+    """Class modeling a shopping items with CRUD operations"""
+
+    def __init__(self, name, quantity, bought=False):
+        self.name = name
+        self.quantity = quantity
+        self.bought = bought
+
+        self.details = {
+            'name': self.name,
+            'quantity': self.quantity,
+            'bought': self.bought
+        }
+
+    def get_details(self):
+        """Method to return the shoppingitems details"""
         return self.details
 
 
@@ -111,3 +130,38 @@ class Storage():
         for item in single_user['shopping_lists']:
             if item['id'] == int(item_id):
                 single_user['shopping_lists'].remove(item)
+
+    def add_shoppingitems(self, user_id, shoppinglist_id, name, quantity):
+        """
+            Method to add shopping items to a shopping list
+        """
+        new_shoppingitem = ShoppingItem(name, quantity)
+        new_shoppingitem_details = new_shoppingitem.get_details()
+        user = self.get_single_user(user_id)
+        for shopinglist in user['shopping_lists']:
+            if shopinglist['id'] == int(shoppinglist_id):
+                curr_shopinglist = shopinglist
+                new_shoppingitem_details['id'] = len(curr_shopinglist['items']) + 1
+                for item in curr_shopinglist['items']:
+                    if new_shoppingitem_details['id'] == item['id']:
+                        new_shoppingitem_details['id'] = new_shoppingitem_details['id'] + 1
+                curr_shopinglist['items'].append(new_shoppingitem_details)
+
+    def get_shoppingitem(self, user_id, shoppinglist_id, item_id):
+        shoppinglist = self.get_shoppinglist(user_id, shoppinglist_id)
+        for item in shoppinglist['items']:
+            if item['id'] == item_id:
+                return item
+
+    def remove_shoppingitem(self, user_id, shoppinglist_id, item_id):
+        shoppinglist = self.get_shoppinglist(user_id, shoppinglist_id)
+        for item in shoppinglist['items']:
+            if item['id'] == int(item_id):
+                shoppinglist['items'].remove(item)
+
+    def buy_shoppingitem(self, user_id, shoppinglist_id, item_id):
+        item = self.get_shoppingitem(user_id, shoppinglist_id, item_id)
+        if item['bought']:
+            item['bought'] = False
+        elif not item['bought']:
+            item['bought'] = True

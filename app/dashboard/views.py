@@ -3,7 +3,7 @@
 from flask import render_template, flash, redirect, url_for, session
 
 from . import dashboard
-from .forms import ShoppinglistForm
+from .forms import ShoppinglistForm, ShoppingitemForm
 from app import store
 
 
@@ -54,3 +54,74 @@ def delete_shoppinglist(sh_id):
         store.remove_shoppinglist(int(user_id), int(sh_id))
         return redirect(url_for('dashboard.dashboard_page'))
         return render_template(title="Delete Shoppinglist Item")
+
+
+@dashboard.route(
+        '/dashboard/shopping_list/<id>', methods=['GET', 'POST'])
+def view_shoppinglist(id):
+    if session['logged_in']:
+        user_id = int(store.current_user['id'])
+        view_list = store.get_shoppinglist(user_id, int(id))
+        items = view_list['items']
+        form = ShoppingitemForm()
+        if form.validate_on_submit():
+            store.add_shoppingitems(
+                user_id,
+                int(id),
+                form.name.data,
+                form.quantity.data
+            )
+            return redirect(url_for('dashboard.view_shoppinglist', id=id))
+        return render_template(
+            'dashboard/shoppinglist.html',
+            items=items,
+            form=form,
+            shoppinglist=view_list
+        )
+
+
+@dashboard.route(
+        '/dashboard/shopping_list/edit_item/<id>/<si_id>',
+        methods=['GET', 'POST']
+)
+def edit_shoppingitem(id, si_id):
+    if session['logged_in']:
+        user_id = int(store.current_user['id'])
+        item = store.get_shoppingitem(user_id, int(id), int(si_id))
+        form = ShoppingitemForm(dict=item)
+        current_shoppinglist = store.get_shoppinglist(user_id, int(id))
+        all_items = current_shoppinglist['items']
+        if form.validate_on_submit():
+            item['name'] = form.name.data
+            item['quantity'] = form.quantity.data
+            return redirect(url_for('dashboard.view_shoppinglist', id=id))
+        form.name.data = item['name']
+        form.quantity.data = item['quantity']
+        return render_template(
+            'dashboard/shoppinglist.html',
+            items=all_items,
+            form=form,
+            shoppinglist=current_shoppinglist
+        )
+
+
+@dashboard.route(
+        '/dashboard/shopping_list/delete_item/<id>/<si_id>',
+        methods=['GET', 'POST']
+)
+def delete_shoppingitem(id, si_id):
+    if session['logged_in']:
+        user_id = int(store.current_user['id'])
+        store.remove_shoppingitem(user_id, int(id), int(si_id))
+        return redirect(url_for('dashboard.view_shoppinglist', id=id))
+
+
+@dashboard.route(
+        '/dashboard/shopping_list/but/<id>/<si_id>',
+        methods=['GET', 'POST']
+)
+def buy_shoppingitem(id, si_id):
+    if session['logged_in']:
+        user_id = int(store.current_user['id'])
+        store.buy_shoppingitem(user_id, int(id), int(si_id))
+        return redirect(url_for('dashboard.view_shoppinglist', id=id))
