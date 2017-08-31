@@ -1,6 +1,6 @@
 """ this module deals with the creation of the application"""
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 
 from config import app_config
@@ -23,5 +23,13 @@ def create_app(config_name):
 
     from .dashboard import dashboard as dashboard_blueprint
     app.register_blueprint(dashboard_blueprint)
+
+    @app.errorhandler(404)
+    def page_not_found(error):
+        return render_template('404.html', title='Page Not Found'), 404
+
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return render_template('500.html', title='Server error'), 500
 
     return app
