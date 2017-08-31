@@ -1,6 +1,6 @@
 """ Module for handling dashboard views"""
 
-from flask import render_template, flash, redirect, url_for, session
+from flask import render_template, redirect, url_for, session
 
 from . import dashboard
 from .forms import ShoppinglistForm, ShoppingitemForm
@@ -26,7 +26,10 @@ def dashboard_page():
         )
 
 
-@dashboard.route('/dashboard/edit_shoppinglist/<sh_id>', methods=['GET', 'POST'])
+@dashboard.route(
+    '/dashboard/edit_shoppinglist/<sh_id>',
+    methods=['GET', 'POST']
+)
 def shoppinglist_edit(sh_id):
     """Render the edit shoppinglist template on the / route"""
     if session['logged_in']:
@@ -49,6 +52,7 @@ def shoppinglist_edit(sh_id):
 
 @dashboard.route('/dashboard/delete/<sh_id>', methods=['GET', 'POST'])
 def delete_shoppinglist(sh_id):
+    """Delete shopping lists"""
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         store.remove_shoppinglist(int(user_id), int(sh_id))
@@ -59,6 +63,7 @@ def delete_shoppinglist(sh_id):
 @dashboard.route(
         '/dashboard/shopping_list/<id>', methods=['GET', 'POST'])
 def view_shoppinglist(id):
+    """Render items in a shopping list and input form"""
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         view_list = store.get_shoppinglist(user_id, int(id))
@@ -85,6 +90,7 @@ def view_shoppinglist(id):
         methods=['GET', 'POST']
 )
 def edit_shoppingitem(id, si_id):
+    """Edit a shopping list item"""
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         item = store.get_shoppingitem(user_id, int(id), int(si_id))
@@ -110,6 +116,7 @@ def edit_shoppingitem(id, si_id):
         methods=['GET', 'POST']
 )
 def delete_shoppingitem(id, si_id):
+    """Delete a shopping list item"""
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         store.remove_shoppingitem(user_id, int(id), int(si_id))
@@ -121,6 +128,7 @@ def delete_shoppingitem(id, si_id):
         methods=['GET', 'POST']
 )
 def buy_shoppingitem(id, si_id):
+    """Mark items as bought"""
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         store.buy_shoppingitem(user_id, int(id), int(si_id))

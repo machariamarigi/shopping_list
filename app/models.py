@@ -108,7 +108,8 @@ class Storage():
         new_shoppinglist_details['id'] = len(user['shopping_lists']) + 1
         for item in user['shopping_lists']:
             if new_shoppinglist_details['id'] == item['id']:
-                new_shoppinglist_details['id'] = new_shoppinglist_details['id'] + 1
+                new_shoppinglist_details['id'] = new_shoppinglist_details['id']
+                + 1
         user['shopping_lists'].append(new_shoppinglist_details)
 
     def get_shoppinglist(self, user_id, item_id):
@@ -148,18 +149,21 @@ class Storage():
                 curr_shopinglist['items'].append(new_shoppingitem_details)
 
     def get_shoppingitem(self, user_id, shoppinglist_id, item_id):
+        """Method to get a single item from the shopping list"""
         shoppinglist = self.get_shoppinglist(user_id, shoppinglist_id)
         for item in shoppinglist['items']:
             if item['id'] == item_id:
                 return item
 
     def remove_shoppingitem(self, user_id, shoppinglist_id, item_id):
+        """Method to delete an item from the shoppinglist"""
         shoppinglist = self.get_shoppinglist(user_id, shoppinglist_id)
         for item in shoppinglist['items']:
             if item['id'] == int(item_id):
                 shoppinglist['items'].remove(item)
 
     def buy_shoppingitem(self, user_id, shoppinglist_id, item_id):
+        """Method to indicate bought items"""
         item = self.get_shoppingitem(user_id, shoppinglist_id, item_id)
         if item['bought']:
             item['bought'] = False
