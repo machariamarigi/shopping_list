@@ -26,6 +26,12 @@ The innovative Shopping list app is an application that allows users to record a
     pip install -r requirements.txt
     ```
 
+## Testing the application
+Run the following command for tests and coverage:
+
+* `coverage run --source=app -m py.test && coverage report`
+    
+
 ## Launching the Program
 Set the FLASK_APP and FLASK_CONFIG variables as follows:
 
@@ -33,3 +39,12 @@ Set the FLASK_APP and FLASK_CONFIG variables as follows:
 * `export FLASK_CONFIG=development`
 
 You can now run the app with the following command: `flask run`
+
+## Authors
+[Macharia Marigi](https://github.com/machariamarigi)
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+* Various resources on the Internet
