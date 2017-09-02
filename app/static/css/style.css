@@ -3,6 +3,11 @@
 * {
     font-family: 'fira code', Verdana;
     margin: 0;
+    box-model: border-box;
+}
+
+*{
+    transition: all 0.3s;
 }
 
 h1 {
@@ -82,11 +87,13 @@ nav ul a {
     text-align: center;
     color: #fff;
     display: block;
-    padding: 10px;
+    height: 50px;
+    margin-bottom: -7.5px;
 }
 
 nav a:hover {
     background-color: #2e0e4b;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -122,77 +129,10 @@ nav a:hover {
     margin: 0 auto; 
 }
 
-.flex-outer,
-.flex-inner {
-    list-style-type: none;
-    padding: 0;
+.flashed-messages {
+    max-width: 700px;
+    margin: 0 auto; 
 }
-
-.flex-outer {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.flex-outer li,
-{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.flex-inner {
-    display: block;
-    text-align: center;
-}
-
-.flex-outer>li:not(:last-child) {
-    margin-bottom: 20px;
-}
-
-.flex-outer li label,
-.flex-outer li p {
-    padding: 8px;
-    font-weight: 300;
-    letter-spacing: .09em;
-    text-transform: uppercase;
-}
-
-.flex-outer>li>label,
-.flex-outer li p {
-    flex: 1 0 120px;
-    max-width: 220px;
-}
-
-.flex-outer>li>label+*,
-.flex-inner {
-    flex: 1 0 220px;
-}
-
-.flex-outer li p {
-    margin: 0;
-}
-
-.flex-outer li input:not([type='checkbox']),
-.flex-outer li textarea {
-    padding: 15px;
-    border: none;
-}
-
-.flex-outer li button {
-    margin-left: auto;
-    padding: 8px 16px;
-    border: none;
-    background: #0e4b2e;
-    color: #f2f2f2;
-    text-transform: uppercase;
-    letter-spacing: .09em;
-    border-radius: 2px;
-}
-
-.flex-inner li {
-    width: 100px;
-}
-
 
 /* Dahboard styles */
 
@@ -205,8 +145,8 @@ nav a:hover {
 .dash-header h1 {
     margin-bottom: 50px;
     width: 500px;
-    border: 1px solid #fff;
-    border-radius: 5px;
+    /* border: 1px solid #fff;
+    border-radius: 5px; */
 }
 
 .dash-table {
@@ -216,8 +156,13 @@ nav a:hover {
     background-color: #fff;
     margin-top: 50px;
     text-align: center;
-    margin-left: 100px;
+    margin-left: 250px;
     border-radius: 10px;
+}
+
+.dash-table h1 {
+    margin: 5px;
+    padding: 5px;
 }
 
 table.table {
@@ -253,10 +198,12 @@ button:hover {
 
 button.edit {
     background: #6F9;
+    color: #333;
 }
 
 button.buy {
     background: #C8D566;
+    color: #333;
 }
 
 button.delete {
@@ -276,31 +223,14 @@ button.delete {
         flex: 1 1 150px;
         border: 0.5px solid rgba(3, 3, 3, 0.2);
     }
-    td.edit-buttons,
-    td.empty {
-        /*flex: 1 0 90%;
-    text-align: center;*/
-    }
 }
 
 * {
-    box-model: border-box;
+    
     font-family: 'futura';
 }
 
-*{
-    transition: all 0.6s;
-}
 
-html {
-    height: 100%;
-}
-
-body{
-    font-family: 'Lato', sans-serif;
-    color: #888;
-    margin: 0;
-}
 
 #main{
     display: table;

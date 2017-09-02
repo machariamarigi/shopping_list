@@ -16,5 +16,5 @@ class ShoppingitemForm(FlaskForm):
     """For used to create a shopping list item"""
     name = StringField('Add or edit an item', validators=[DataRequired()])
     quantity = StringField(
-        'Add or edit quanity of items', validators=[DataRequired()])
+        'Add or edit quantity of items', validators=[DataRequired()])
     submit = SubmitField('Add')

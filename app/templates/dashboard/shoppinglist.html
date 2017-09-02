@@ -9,8 +9,8 @@
     </div>
     {{ wtf.quick_form(form) }}
     {% if items %}
-        <div class="dash-table text-center">
-            <h1>My Shopping Lists</h1>
+        <div class="dash-table col-md-8">
+            <h1>Items To Buy</h1>
             <table class="table">
                 <tr>
                     <th>Shopping List Name</th>
@@ -33,6 +33,10 @@
                 {% endfor %}
             </table>
         </div>
+    {% else %}
+        <div class="dash-table">
+            <h1>Add new items to this shopping list</h1>
+        </div>    
     {% endif %}
 </div>
 {% endblock %}

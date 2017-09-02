@@ -5,6 +5,15 @@ from unittest import TestCase
 from app.models import User, Storage, ShoppingList, ShoppingItem
 
 
+class TestBase(TestCase):
+    def setUp(self):
+        self.test_store = Storage()
+        self.test_store.add_user('test', 'test6@test.com', 'test')
+        self.test_user = self.test_store.get_single_user(1)
+        self.test_store.add_shoppinglist(1, 'Holiday Shopping')
+        self.test_shoppinglist = self.test_store.get_shoppinglist(1, 1)
+
+
 class TestUserModel(TestCase):
     """Class containing tests for a user"""
 
@@ -62,57 +71,43 @@ class TestShoppingItemModel(TestCase):
         )
 
 
-class TestStorage(TestCase):
+class TestStorage(TestBase):
     """Class to test storage model"""
-
-    def setUp(self):
-        self.test_store = Storage()
-        self.test_store.add_user('test', 'test6@test.com', 'test')
-        self.test_user = self.test_store.get_single_user(1)
-        self.test_store.add_shoppinglist(1, 'Holiday Shopping')
-        self.test_shoppinglist = self.test_store.get_shoppinglist(1, 1)
 
     def test_create_user(self):
         """Test if we can add new users into the system"""
         initial_users = len(self.test_store.users)
         self.test_store.add_user('test', 'test@test.com', 'test')
         final_users = len(self.test_store.users)
-        self.assertEquals(
-            9, final_users-initial_users, 'User not created')
+        self.assertEqual(
+            6, final_users-initial_users, 'User not created')
 
     def test_add_shoppinglist(self):
             """Test for adding  shoppinglist functionality"""
-            self.test_store.add_user('mash', 'mash@mash1.com', 'mash_pass')
-            test_user = self.test_store.get_single_user(1)
-            initial_shoppinglists = len(test_user['shopping_lists'])
+            initial_shoppinglists = len(self.test_user['shopping_lists'])
             self.test_store.add_shoppinglist(1, 'groceries')
-            final_shoppinglists = len(test_user['shopping_lists'])
+            final_shoppinglists = len(self.test_user['shopping_lists'])
             self.assertEquals(
                 1, final_shoppinglists-initial_shoppinglists,
                 'shoppinglist item not created properly')
 
     def test_get_shoppinglist(self):
         """Test whether we can get a single shoppinglist"""
-        self.test_store.add_user('mash', 'mash@mash2.com', 'mash_pass')
-        self.test_store.add_shoppinglist(2, "hardware")
-        test_item = self.test_store.get_shoppinglist(2, 1)
+        test_item = self.test_store.get_shoppinglist(1, 1)
         self.assertEquals(
             test_item,
             {
                 "id": 1,
-                "name": "hardware",
+                "name": "Holiday Shopping",
                 "items": [],
             }, "Item not found"
         )
 
     def test_delete_shoppinglist(self):
         """Test to see whether we can delete a shoppinglist"""
-        self.test_store.add_user('mash', 'mash@mash3.com', 'mash_pass')
-        self.test_store.add_shoppinglist(1, "Utensils")
-        test_user = self.test_store.get_single_user(1)
-        initial_shoppinglists = len(test_user['shopping_lists'])
-        self.test_store.remove_shoppinglist(1, 1)
-        final_shoppinglists = len(test_user['shopping_lists'])
+        initial_shoppinglists = len(self.test_user['shopping_lists'])
+        self.test_store.remove_shoppinglist(1, 2)
+        final_shoppinglists = len(self.test_user['shopping_lists'])
         self.assertEquals(
             1,
             initial_shoppinglists-final_shoppinglists,
