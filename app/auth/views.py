@@ -18,7 +18,6 @@ def login():
                 if form.password.data == user['password']:
                     store.current_user = user
                     session['logged_in'] = True
-                    flash('You have logged in.')
                     return redirect(
                         url_for(
                             'dashboard.dashboard_page'))
@@ -42,7 +41,6 @@ def register():
             if form.email.data == user['email']:
                 store.current_user = user
         session['logged_in'] = True
-        flash('You are logged in')
         return redirect(url_for('dashboard.dashboard_page'))
     return render_template('auth/register.html', form=form, title='Register')
 
