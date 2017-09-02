@@ -127,6 +127,11 @@ nav a:hover {
     margin: 0 auto; 
 }
 
+.flashed-messages {
+    max-width: 700px;
+    margin: 0 auto; 
+}
+
 .flex-outer,
 .flex-inner {
     list-style-type: none;
