@@ -13,7 +13,7 @@
             <h1>Items To Buy</h1>
             <table class="table">
                 <tr>
-                    <th>Shopping List Name</th>
+                    <th>Item Name</th>
                     <th>Quantity</th>
                 </tr>
                 {% for item in items %}
@@ -26,7 +26,9 @@
                             {% else %}
                                 <button><a href="{{ url_for('dashboard.buy_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Bought?</a></button>
                             {% endif %}
-                            <button class="edit"><a href="{{ url_for('dashboard.edit_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Edit</a></button>
+                            {% if not  item['bought'] %}
+                                <button class="edit"><a href="{{ url_for('dashboard.edit_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Edit</a></button>
+                            {% endif %}
                             <button class="delete"><a href="{{ url_for('dashboard.delete_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Delete</a></button>
                         </td>
                     </tr>
@@ -38,5 +40,6 @@
             <h1>Add new items to this shopping list</h1>
         </div>    
     {% endif %}
+        {{ utils.flashed_messages() }}
 </div>
 {% endblock %}

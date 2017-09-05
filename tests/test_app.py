@@ -44,4 +44,3 @@ class TestAppRun(TestCase):
         """Test the loading of signup page"""
         response = self.client.get(url_for('auth.register'))
         self.assert200(response)
-

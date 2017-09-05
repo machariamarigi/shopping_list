@@ -12,13 +12,13 @@ class User():
         self.username = username
         self.email = email
         self.password = password
-        self.shopping_list = []
+        self.shopping_lists = []
 
         self.details = {
             'username': self.username,
             'email': self.email,
             'password': self.password,
-            'shopping_lists': self.shopping_list
+            'shopping_lists': self.shopping_lists
         }
 
     def get_details(self):
@@ -107,10 +107,13 @@ class Storage():
         user = self.get_single_user(user_id)
         new_shoppinglist_details['id'] = len(user['shopping_lists']) + 1
         for item in user['shopping_lists']:
+            if item['name'] == name:
+                return "Shopping list " + str(name) + " exits. Try editing it"
             if new_shoppinglist_details['id'] == item['id']:
                 new_shoppinglist_details['id'] = new_shoppinglist_details['id']
                 + 1
         user['shopping_lists'].append(new_shoppinglist_details)
+        return "Shopping list " + str(name) + " Created"
 
     def get_shoppinglist(self, user_id, item_id):
         """
@@ -144,9 +147,12 @@ class Storage():
                 curr_shopinglist = shopinglist
                 new_shoppingitem_details['id'] = len(curr_shopinglist['items']) + 1
                 for item in curr_shopinglist['items']:
+                    if item['name'] == name:
+                        return "Item " + str(name) + " exits. Try editing it"
                     if new_shoppingitem_details['id'] == item['id']:
                         new_shoppingitem_details['id'] = new_shoppingitem_details['id'] + 1
                 curr_shopinglist['items'].append(new_shoppingitem_details)
+                return str(name) + " has been added"
 
     def get_shoppingitem(self, user_id, shoppinglist_id, item_id):
         """Method to get a single item from the shopping list"""
