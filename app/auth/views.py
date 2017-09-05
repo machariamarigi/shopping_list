@@ -34,11 +34,7 @@ def register():
     form = SignUpForm()
     if form.validate_on_submit():
         store.add_user(form.username.data, form.email.data, form.password.data)
-        for user in store.users:
-            if form.email.data == user['email']:
-                store.current_user = user
-        session['logged_in'] = True
-        return redirect(url_for('dashboard.dashboard_page'))
+        return redirect(url_for('auth.login'))
     return render_template('auth/register.html', form=form, title='Register')
 
 

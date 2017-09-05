@@ -85,11 +85,16 @@ class TestStorage(TestBase):
     def test_add_shoppinglist(self):
             """Test for adding  shoppinglist functionality"""
             initial_shoppinglists = len(self.test_user['shopping_lists'])
-            self.test_store.add_shoppinglist(1, 'groceries')
+            added = self.test_store.add_shoppinglist(1, 'groceries')
             final_shoppinglists = len(self.test_user['shopping_lists'])
             self.assertEquals(
                 1, final_shoppinglists-initial_shoppinglists,
                 'shoppinglist item not created properly')
+            message = "Shopping list groceries Created"
+            self.assertEquals(added, message)
+            added2 = self.test_store.add_shoppinglist(1, 'groceries')
+            message2 = "Shopping list groceries exits. Try editing it"
+            self.assertEquals(added2, message2)
 
     def test_get_shoppinglist(self):
         """Test whether we can get a single shoppinglist"""
