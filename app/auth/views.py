@@ -22,8 +22,10 @@ def login():
                         url_for(
                             'dashboard.dashboard_page'))
                 else:
-                    flash('Incorrect inputs or Account not registered')
+                    flash('Wrong password, please try again')
                     return redirect(url_for('auth.login'))
+        flash('Email not recognised, please Register or try again')
+        return redirect(url_for('auth.login'))
 
     return render_template('auth/login.html', title='login', form=form)
 

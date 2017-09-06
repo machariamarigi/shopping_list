@@ -7,7 +7,9 @@
     <div class="dash-header">
         <h1>Shopping list - {{ shoppinglist.name }}</h1>
     </div>
-    {{ wtf.quick_form(form) }}
+    <div class="jumbotron">
+        {{ wtf.quick_form(form) }}
+    </div>
     {% if items %}
         <div class="dash-table col-md-8">
             <h1>Items To Buy</h1>
