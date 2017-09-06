@@ -1,6 +1,6 @@
 """ Module for handling dashboard views"""
 
-from flask import render_template, redirect, url_for, session, flash
+from flask import render_template, redirect, url_for, session, flash, abort
 
 from . import dashboard
 from .forms import ShoppinglistForm, ShoppingitemForm
@@ -25,6 +25,7 @@ def dashboard_page():
             form=form,
             shoppinglists=all_shoppinglist
         )
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -54,6 +55,7 @@ def shoppinglist_edit(sh_id):
             form=form,
             shoppinglists=all_shoppinglist
         )
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route('/dashboard/delete/<sh_id>', methods=['GET', 'POST'])
@@ -62,8 +64,8 @@ def delete_shoppinglist(sh_id):
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         store.remove_shoppinglist(int(user_id), int(sh_id))
-        return redirect(url_for('dashboard.dashboard_page'))
-        return render_template(title="Delete Shoppinglist Item")
+        return redirect(url_for('dashboard.dashboard_page')) 
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -90,6 +92,7 @@ def view_shoppinglist(id):
             form=form,
             shoppinglist=view_list
         )
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -121,6 +124,8 @@ def edit_shoppingitem(id, si_id):
             form=form,
             shoppinglist=current_shoppinglist
         )
+    else:
+        return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -133,6 +138,8 @@ def delete_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.remove_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
+    else:
+        abort(401)
 
 
 @dashboard.route(
@@ -145,3 +152,5 @@ def buy_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.buy_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
+    else:
+        abort(401)

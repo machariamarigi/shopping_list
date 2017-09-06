@@ -85,11 +85,11 @@ class Storage():
         new_user_details = new_user.get_details()
         for user in self.users:
             if new_user_details['email'] == user['email']:
-                break
-                return False
+                return 'User already exists'
             else:
                 new_user_details['id'] = len(self.users)
                 self.users.append(new_user_details)
+                return 'Account created. You can now log in'
 
     def get_single_user(self, id):
         """Method to return a single user base on a given id"""

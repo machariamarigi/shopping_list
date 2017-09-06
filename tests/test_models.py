@@ -80,7 +80,7 @@ class TestStorage(TestBase):
         self.test_store.add_user('test', 'test@test.com', 'test')
         final_users = len(self.test_store.users)
         self.assertEqual(
-            6, final_users-initial_users, 'User not created')
+            1, final_users-initial_users, 'User not created')
 
     def test_add_shoppinglist(self):
             """Test for adding  shoppinglist functionality"""
