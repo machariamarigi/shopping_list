@@ -24,7 +24,14 @@ class TestAppRun(TestCase):
     def test_404_not_found(self):
         """Method to test page not """
         response = self.client.get('/nonesense')
-        self.assertEqual(response.status_code, 404)
+        self.assert404(response)
+
+    def test_401_unauthorized(self):
+        """Method to test page not """
+        self.client.get(url_for('landing_page.landing'))
+        self.assert401(self.client.get(url_for('dashboard.dashboard_page')))
+        # self.assert401(('dashboard.shoppinglist_edit'))
+        # self.assert401(('dashboard.'))
 
     def test_500_internal_server_error(self):
         """Method to test server errors"""

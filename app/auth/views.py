@@ -33,8 +33,15 @@ def register():
     """Method to handle sign up of users"""
     form = SignUpForm()
     if form.validate_on_submit():
-        store.add_user(form.username.data, form.email.data, form.password.data)
-        return redirect(url_for('auth.login'))
+        for user in store.users:
+            if form.email.data == user['email']:
+                flash("Email already exists. Try again")
+                return redirect(url_for('auth.register'))
+        else:
+            store.add_user(
+                form.username.data, form.email.data, form.password.data)
+            flash('Account created you can login')
+            return redirect(url_for('auth.login'))
     return render_template('auth/register.html', form=form, title='Register')
 
 

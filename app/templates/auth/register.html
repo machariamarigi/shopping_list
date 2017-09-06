@@ -1,3 +1,4 @@
+{% import "bootstrap/utils.html" as utils %}                
 {% import "bootstrap/wtf.html" as wtf %}
 {% extends "base.html" %}
 {% block title %}Register{% endblock %}
@@ -5,5 +6,6 @@
         <div class="container">
             <h1 class="text-center">Register Form</h1>
             {{ wtf.quick_form(form) }}
+            {{ utils.flashed_messages() }}
         </div>
 {% endblock %}

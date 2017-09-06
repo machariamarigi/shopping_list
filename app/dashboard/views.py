@@ -1,6 +1,6 @@
 """ Module for handling dashboard views"""
 
-from flask import render_template, redirect, url_for, session, flash
+from flask import render_template, redirect, url_for, session, flash, abort
 
 from . import dashboard
 from .forms import ShoppinglistForm, ShoppingitemForm
@@ -13,7 +13,7 @@ def dashboard_page():
     if session['logged_in']:
         add_shoppinglist = True
         form = ShoppinglistForm()
-        all_shoppinglist = store.current_user['shopping_lists']
+        all_shoppinglist = store.current_user.get('shopping_list', [])
         if form.validate_on_submit():
             user_id = int(store.current_user['id'])
             message = store.add_shoppinglist(user_id, form.name.data)
@@ -25,6 +25,8 @@ def dashboard_page():
             form=form,
             shoppinglists=all_shoppinglist
         )
+    else:
+        abort(401)
 
 
 @dashboard.route(
@@ -54,6 +56,8 @@ def shoppinglist_edit(sh_id):
             form=form,
             shoppinglists=all_shoppinglist
         )
+    else:
+        abort(401)
 
 
 @dashboard.route('/dashboard/delete/<sh_id>', methods=['GET', 'POST'])
@@ -64,6 +68,8 @@ def delete_shoppinglist(sh_id):
         store.remove_shoppinglist(int(user_id), int(sh_id))
         return redirect(url_for('dashboard.dashboard_page'))
         return render_template(title="Delete Shoppinglist Item")
+    else:
+        abort(401)
 
 
 @dashboard.route(
@@ -90,6 +96,8 @@ def view_shoppinglist(id):
             form=form,
             shoppinglist=view_list
         )
+    else:
+        abort(401)
 
 
 @dashboard.route(
@@ -121,6 +129,8 @@ def edit_shoppingitem(id, si_id):
             form=form,
             shoppinglist=current_shoppinglist
         )
+    else:
+        abort(401)
 
 
 @dashboard.route(
@@ -133,6 +143,8 @@ def delete_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.remove_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
+    else:
+        abort(401)
 
 
 @dashboard.route(
@@ -145,3 +157,5 @@ def buy_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.buy_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
+    else:
+        abort(401)
