@@ -25,8 +25,7 @@ def dashboard_page():
             form=form,
             shoppinglists=all_shoppinglist
         )
-    else:
-        abort(401)
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -56,8 +55,7 @@ def shoppinglist_edit(sh_id):
             form=form,
             shoppinglists=all_shoppinglist
         )
-    else:
-        abort(401)
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route('/dashboard/delete/<sh_id>', methods=['GET', 'POST'])
@@ -66,10 +64,8 @@ def delete_shoppinglist(sh_id):
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         store.remove_shoppinglist(int(user_id), int(sh_id))
-        return redirect(url_for('dashboard.dashboard_page'))
-        return render_template(title="Delete Shoppinglist Item")
-    else:
-        abort(401)
+        return redirect(url_for('dashboard.dashboard_page')) 
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -96,8 +92,7 @@ def view_shoppinglist(id):
             form=form,
             shoppinglist=view_list
         )
-    else:
-        abort(401)
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -130,7 +125,7 @@ def edit_shoppingitem(id, si_id):
             shoppinglist=current_shoppinglist
         )
     else:
-        abort(401)
+        return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
