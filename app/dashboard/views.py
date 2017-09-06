@@ -13,7 +13,7 @@ def dashboard_page():
     if session['logged_in']:
         add_shoppinglist = True
         form = ShoppinglistForm()
-        all_shoppinglist = store.current_user.get('shopping_list', [])
+        all_shoppinglist = store.current_user['shopping_lists']
         if form.validate_on_submit():
             user_id = int(store.current_user['id'])
             message = store.add_shoppinglist(user_id, form.name.data)

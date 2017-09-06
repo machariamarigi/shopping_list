@@ -4,8 +4,10 @@
 {% block title %}Register{% endblock %}
 {% block body %}
         <div class="container">
-            <h1 class="text-center">Register Form</h1>
-            {{ wtf.quick_form(form) }}
             {{ utils.flashed_messages() }}
+            <h1 class="text-center">Register Form</h1>
+            <div class="jumbotron">
+                {{ wtf.quick_form(form) }}
+            </div>
         </div>
 {% endblock %}
