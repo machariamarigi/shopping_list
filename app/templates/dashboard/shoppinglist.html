@@ -1,0 +1,47 @@
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "authbase.html" %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="dash-header">
+        <h1>Shopping list - {{ shoppinglist.name }}</h1>
+    </div>
+    <div class="jumbotron">
+        {{ wtf.quick_form(form) }}
+    </div>
+    {% if items %}
+        <div class="dash-table col-md-8">
+            <h1>Items To Buy</h1>
+            <table class="table">
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                </tr>
+                {% for item in items %}
+                    <tr>
+                        <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['name'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
+                        <td>{% if item['bought'] %}<strike> {%  endif %}{{ item['quantity'] }}{% if item['bought'] %} </strike>{%  endif %}</td>
+                        <td class="edit-buttons">
+                            {% if item['bought'] %}
+                                Item Bought
+                            {% else %}
+                                <button><a href="{{ url_for('dashboard.buy_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Bought?</a></button>
+                            {% endif %}
+                            {% if not  item['bought'] %}
+                                <button class="edit"><a href="{{ url_for('dashboard.edit_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Edit</a></button>
+                            {% endif %}
+                            <button class="delete"><a href="{{ url_for('dashboard.delete_shoppingitem', id=shoppinglist['id'], si_id=item['id']) }}">Delete</a></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <div class="dash-table">
+            <h1>Add new items to this shopping list</h1>
+        </div>    
+    {% endif %}
+        {{ utils.flashed_messages() }}
+</div>
+{% endblock %}
