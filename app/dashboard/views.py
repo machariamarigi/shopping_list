@@ -114,7 +114,8 @@ def edit_shoppingitem(id, si_id):
         all_items = current_shoppinglist['items']
         if form.validate_on_submit():
             for item in current_shoppinglist['items']:
-                if item['name'] == form.name.data:
+                current_name = item['name']
+                if item['name'] == form.name.data and not current_name:
                     flash('Item ' + str(form.name.data) + " already exists")
                     break
             else:
