@@ -1,6 +1,6 @@
 """ Module for handling dashboard views"""
 
-from flask import render_template, redirect, url_for, session, flash, abort
+from flask import render_template, redirect, url_for, session, flash
 
 from . import dashboard
 from .forms import ShoppinglistForm, ShoppingitemForm
@@ -64,12 +64,12 @@ def delete_shoppinglist(sh_id):
     if session['logged_in']:
         user_id = int(store.current_user['id'])
         store.remove_shoppinglist(int(user_id), int(sh_id))
-        return redirect(url_for('dashboard.dashboard_page')) 
+        return redirect(url_for('dashboard.dashboard_page'))
     return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
-        '/dashboard/shopping_list/<id>', methods=['GET', 'POST'])
+    '/dashboard/shopping_list/<id>', methods=['GET', 'POST'])
 def view_shoppinglist(id):
     """Render items in a shopping list and input form"""
     if session['logged_in']:
@@ -124,8 +124,7 @@ def edit_shoppingitem(id, si_id):
             form=form,
             shoppinglist=current_shoppinglist
         )
-    else:
-        return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -138,8 +137,7 @@ def delete_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.remove_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
-    else:
-        abort(401)
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
@@ -152,5 +150,4 @@ def buy_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.buy_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
-    else:
-        abort(401)
+    return redirect(url_for('auth.login'))
