@@ -2,16 +2,8 @@
 
 from unittest import TestCase
 
-from app.models import User, Storage, ShoppingList, ShoppingItem
-
-
-class TestBase(TestCase):
-    def setUp(self):
-        self.test_store = Storage()
-        self.test_store.add_user('test', 'test6@test.com', 'test')
-        self.test_user = self.test_store.get_single_user(1)
-        self.test_store.add_shoppinglist(1, 'Holiday Shopping')
-        self.test_shoppinglist = self.test_store.get_shoppinglist(1, 1)
+from app.models import User, ShoppingList, ShoppingItem
+from .basetest import TestBase
 
 
 class TestUserModel(TestCase):
@@ -83,23 +75,23 @@ class TestStorage(TestBase):
             1, final_users-initial_users, 'User not created')
 
     def test_add_shoppinglist(self):
-            """Test for adding  shoppinglist functionality"""
-            initial_shoppinglists = len(self.test_user['shopping_lists'])
-            added = self.test_store.add_shoppinglist(1, 'groceries')
-            final_shoppinglists = len(self.test_user['shopping_lists'])
-            self.assertEquals(
-                1, final_shoppinglists-initial_shoppinglists,
-                'shoppinglist item not created properly')
-            message = "Shopping list groceries Created"
-            self.assertEquals(added, message)
-            added2 = self.test_store.add_shoppinglist(1, 'groceries')
-            message2 = "Shopping list groceries exits. Try editing it"
-            self.assertEquals(added2, message2)
+        """Test for adding  shoppinglist functionality"""
+        initial_shoppinglists = len(self.test_user['shopping_lists'])
+        added = self.test_store.add_shoppinglist(1, 'groceries')
+        final_shoppinglists = len(self.test_user['shopping_lists'])
+        self.assertEqual(
+            1, final_shoppinglists-initial_shoppinglists,
+            'shoppinglist item not created properly')
+        message = "Shopping list groceries Created"
+        self.assertEqual(added, message)
+        added2 = self.test_store.add_shoppinglist(1, 'groceries')
+        message2 = "Shopping list groceries exits. Try editing it"
+        self.assertEqual(added2, message2)
 
     def test_get_shoppinglist(self):
         """Test whether we can get a single shoppinglist"""
         test_item = self.test_store.get_shoppinglist(1, 1)
-        self.assertEquals(
+        self.assertEqual(
             test_item,
             {
                 "id": 1,
@@ -113,7 +105,7 @@ class TestStorage(TestBase):
         initial_shoppinglists = len(self.test_user['shopping_lists'])
         self.test_store.remove_shoppinglist(1, 2)
         final_shoppinglists = len(self.test_user['shopping_lists'])
-        self.assertEquals(
+        self.assertEqual(
             1,
             initial_shoppinglists-final_shoppinglists,
             'Items not removed'
@@ -123,14 +115,14 @@ class TestStorage(TestBase):
         initial_shoppingItems = len(self.test_shoppinglist['items'])
         self.test_store.add_shoppingitems(1, 1, 'sun glasses', 1)
         final_shoppingItems = len(self.test_shoppinglist['items'])
-        self.assertEquals(
+        self.assertEqual(
             1,
             final_shoppingItems - initial_shoppingItems,
             'Shopping Item not created properly')
 
     def test_added_get_shoppingitem(self):
         test_item = self.test_store.get_shoppingitem(1, 1, 1)
-        self.assertEquals(
+        self.assertEqual(
             test_item,
             {
                 "id": 1,
@@ -144,7 +136,7 @@ class TestStorage(TestBase):
         initial_shoppingItems = len(self.test_shoppinglist['items'])
         self.test_store.remove_shoppingitem(1, 1, 1)
         final_shoppingItems = len(self.test_shoppinglist['items'])
-        self.assertEquals(
+        self.assertEqual(
             1,
             initial_shoppingItems-final_shoppingItems,
             'Items not removed'
@@ -153,7 +145,7 @@ class TestStorage(TestBase):
     def test_buy_shoppinlistitem(self):
         self.test_store.buy_shoppingitem(1, 1, 1)
         bought_item = self.test_store.get_shoppingitem(1, 1, 1)
-        self.assertEquals(
+        self.assertEqual(
             bought_item,
             {
                 "id": 1,
