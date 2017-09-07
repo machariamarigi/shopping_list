@@ -45,17 +45,3 @@ class TestAppRun(TestBase):
         response = self.client.get(target_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, redirect_url)
-
-    def test_register_form(self):
-        """Test user registration"""
-        self.client.get('auth.register')
-        form_data = {
-            'username': 'test',
-            'email': 'test@testing.cpm',
-            'password': 'test1234',
-            'confirm_password': 'test1234'
-        }
-        initial_users = len(self.test_store.users)
-        self.client.post('auth.register', data=form_data)
-        final_users = len(self.test_store.users)
-        self.assertEqual(final_users - initial_users, 1)
