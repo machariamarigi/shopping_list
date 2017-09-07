@@ -62,8 +62,5 @@ def register():
 @auth.route('/logout')
 def logout():
     """Log out a user"""
-    if 'username' not in session.keys():
-        session.pop('username', None)
-        return redirect(url_for('auth.login'))
-    else:
-        return redirect(url_for('dashboard.dashboard_page'))
+    session.pop('username', None)
+    return redirect(url_for('auth.login'))
