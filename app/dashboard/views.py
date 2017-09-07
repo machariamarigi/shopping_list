@@ -1,6 +1,6 @@
 """ Module for handling dashboard views"""
 
-from flask import render_template, redirect, url_for, session, flash, abort
+from flask import render_template, redirect, url_for, session, flash
 
 from . import dashboard
 from .forms import ShoppinglistForm, ShoppingitemForm
@@ -10,12 +10,13 @@ from app import store
 @dashboard.route('/dashboard', methods=['GET', 'POST'])
 def dashboard_page():
     """Render the dashboard template on the / route"""
-    if session['logged_in']:
+    if 'username' in session:
         add_shoppinglist = True
         form = ShoppinglistForm()
-        all_shoppinglist = store.current_user['shopping_lists']
+        account = store.current_users[session['username']]
+        all_shoppinglist = account['shopping_lists']
         if form.validate_on_submit():
-            user_id = int(store.current_user['id'])
+            user_id = int(account['id'])
             message = store.add_shoppinglist(user_id, form.name.data)
             flash(message)
             return redirect(url_for('dashboard.dashboard_page'))
@@ -34,15 +35,16 @@ def dashboard_page():
 )
 def shoppinglist_edit(sh_id):
     """Render the edit shoppinglist template on the / route"""
-    if session['logged_in']:
+    if 'username' in session:
         add_shoppinglist = False
-        user_id = int(store.current_user['id'])
+        account = store.current_users[session['username']]
+        user_id = int(account['id'])
         single_shopping_list = store.get_shoppinglist(int(user_id), int(sh_id))
         form = ShoppinglistForm(dict=single_shopping_list)
-        all_shoppinglist = store.current_user['shopping_lists']
+        all_shoppinglist = account['shopping_lists']
         if form.validate_on_submit():
-            for list in store.current_user['shopping_lists']:
-                if list['name'] == form.name.data:
+            for shoppinglist in account['shopping_lists']:
+                if shoppinglist['name'] == form.name.data:
                     flash('List ' + str(form.name.data) + " already exists.")
                     break
             else:
@@ -61,19 +63,21 @@ def shoppinglist_edit(sh_id):
 @dashboard.route('/dashboard/delete/<sh_id>', methods=['GET', 'POST'])
 def delete_shoppinglist(sh_id):
     """Delete shopping lists"""
-    if session['logged_in']:
-        user_id = int(store.current_user['id'])
+    if 'username' in session:
+        account = store.current_users[session['username']]
+        user_id = int(account['id'])
         store.remove_shoppinglist(int(user_id), int(sh_id))
-        return redirect(url_for('dashboard.dashboard_page')) 
+        return redirect(url_for('dashboard.dashboard_page'))
     return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
-        '/dashboard/shopping_list/<id>', methods=['GET', 'POST'])
+    '/dashboard/shopping_list/<id>', methods=['GET', 'POST'])
 def view_shoppinglist(id):
     """Render items in a shopping list and input form"""
-    if session['logged_in']:
-        user_id = int(store.current_user['id'])
+    if 'username' in session:
+        account = store.current_users[session['username']]
+        user_id = int(account['id'])
         view_list = store.get_shoppinglist(user_id, int(id))
         items = view_list['items']
         form = ShoppingitemForm()
@@ -96,13 +100,14 @@ def view_shoppinglist(id):
 
 
 @dashboard.route(
-        '/dashboard/shopping_list/edit_item/<id>/<si_id>',
-        methods=['GET', 'POST']
+    '/dashboard/shopping_list/edit_item/<id>/<si_id>',
+    methods=['GET', 'POST']
 )
 def edit_shoppingitem(id, si_id):
     """Edit a shopping list item"""
-    if session['logged_in']:
-        user_id = int(store.current_user['id'])
+    if 'username' in session:
+        account = store.current_users[session['username']]
+        user_id = int(account['id'])
         item = store.get_shoppingitem(user_id, int(id), int(si_id))
         form = ShoppingitemForm(dict=item)
         current_shoppinglist = store.get_shoppinglist(user_id, int(id))
@@ -124,27 +129,26 @@ def edit_shoppingitem(id, si_id):
             form=form,
             shoppinglist=current_shoppinglist
         )
-    else:
-        return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
-        '/dashboard/shopping_list/delete_item/<id>/<si_id>',
-        methods=['GET', 'POST']
+    '/dashboard/shopping_list/delete_item/<id>/<si_id>',
+    methods=['GET', 'POST']
 )
 def delete_shoppingitem(id, si_id):
     """Delete a shopping list item"""
-    if session['logged_in']:
-        user_id = int(store.current_user['id'])
+    if 'username' in session:
+        account = store.current_users[session['username']]
+        user_id = int(account['id'])
         store.remove_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
-    else:
-        abort(401)
+    return redirect(url_for('auth.login'))
 
 
 @dashboard.route(
-        '/dashboard/shopping_list/but/<id>/<si_id>',
-        methods=['GET', 'POST']
+    '/dashboard/shopping_list/but/<id>/<si_id>',
+    methods=['GET', 'POST']
 )
 def buy_shoppingitem(id, si_id):
     """Mark items as bought"""
@@ -152,5 +156,4 @@ def buy_shoppingitem(id, si_id):
         user_id = int(store.current_user['id'])
         store.buy_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
-    else:
-        abort(401)
+    return redirect(url_for('auth.login'))

@@ -159,10 +159,8 @@ nav ul a {
 }
 
 .dash-header h1 {
-    margin-bottom: 50px;
-    width: 500px;
-    /* border: 1px solid #fff;
-    border-radius: 5px; */
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .dash-table {

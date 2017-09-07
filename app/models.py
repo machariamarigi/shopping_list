@@ -76,7 +76,7 @@ class Storage():
         'id': 0
     }]
 
-    current_user = {}
+    current_users = {}
 
     def add_user(self, username, email, password):
         """Method to register users to the application"""

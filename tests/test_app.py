@@ -1,20 +1,12 @@
 """ Module to test the running the application """
-
 from flask import url_for, abort
 from flask_testing import TestCase
 
-from app import create_app
+from .basetest import TestBase
 
 
-class TestAppRun(TestCase):
+class TestAppRun(TestBase):
     """Test the running of the application"""
-
-    def create_app(self):
-        """Create test instance of the application"""
-        config_name = 'testing'
-        app = create_app(config_name)
-        app.config['SECRET_KEY'] = 'sekrit!'
-        return app
 
     def test_index(self):
         """Test the loading of the landing_page"""
@@ -26,17 +18,11 @@ class TestAppRun(TestCase):
         response = self.client.get('/nonesense')
         self.assert404(response)
 
-    def test_401_unauthorized(self):
-        """Method to test page not """
-        self.client.get(url_for('landing_page.landing'))
-        self.assert401(self.client.get(url_for('dashboard.dashboard_page')))
-        # self.assert401(('dashboard.shoppinglist_edit'))
-        # self.assert401(('dashboard.'))
-
     def test_500_internal_server_error(self):
         """Method to test server errors"""
         @self.app.route('/500')
         def internal_server_error():
+            """Raise server eeeor"""
             abort(500)
 
         response = self.client.get('/500')
@@ -51,3 +37,11 @@ class TestAppRun(TestCase):
         """Test the loading of signup page"""
         response = self.client.get(url_for('auth.register'))
         self.assert200(response)
+
+    def test_logout_view(self):
+        """Test logout link """
+        target_url = url_for('auth.logout')
+        redirect_url = url_for('auth.login')
+        response = self.client.get(target_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, redirect_url)
