@@ -152,8 +152,9 @@ def delete_shoppingitem(id, si_id):
 )
 def buy_shoppingitem(id, si_id):
     """Mark items as bought"""
-    if session['logged_in']:
-        user_id = int(store.current_user['id'])
+    if 'username' in session:
+        account = store.current_users[session['username']]
+        user_id = int(account['id'])
         store.buy_shoppingitem(user_id, int(id), int(si_id))
         return redirect(url_for('dashboard.view_shoppinglist', id=id))
     return redirect(url_for('auth.login'))
