@@ -6,6 +6,7 @@
 <div class="container">
     <div class="dash-header">
         <h1>Shopping list - {{ shoppinglist.name }}</h1>
+        <button><a href="{{ url_for('dashboard.dashboard_page') }}">View all Shopping lists</a></button>
     </div>
     <div class="jumbotron">
         {{ wtf.quick_form(form) }}

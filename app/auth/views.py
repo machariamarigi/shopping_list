@@ -3,9 +3,9 @@
 
 from flask import render_template, flash, redirect, url_for, session
 
+from app import store
 from . import auth
 from .forms import SignUpForm, LoginForm
-from app import store
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -49,12 +49,15 @@ def register():
                 elif form.username.data == user['username']:
                     flash("Username is already taken. Try another one")
                     return redirect(url_for('auth.register'))
-            else:
-                store.add_user(
-                    form.username.data, form.email.data, form.password.data)
-                flash('Account created you can now login')
-                return redirect(url_for('auth.login'))
-        return render_template('auth/register.html', form=form, title='Register')
+            store.add_user(
+                form.username.data, form.email.data, form.password.data)
+            flash('Account created you can now login')
+            return redirect(url_for('auth.login'))
+        return render_template(
+            'auth/register.html',
+            form=form,
+            title='Register'
+        )
     else:
         return redirect(url_for('dashboard.dashboard_page'))
 

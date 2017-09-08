@@ -26,14 +26,17 @@ def create_app(config_name):
 
     @app.errorhandler(404)
     def page_not_found(error):
+        """Method to handle 404 errors"""
         return render_template('404.html', title='Page Not Found'), 404
 
     @app.errorhandler(401)
     def unauthorized(error):
+        """Method to handle 401 errors"""
         return render_template('401.html', title='Unauthorized'), 401
 
     @app.errorhandler(500)
     def internal_server_error(error):
+        """Method to handle 400 errors"""
         return render_template('500.html', title='Server error'), 500
 
     return app

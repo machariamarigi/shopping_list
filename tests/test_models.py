@@ -112,15 +112,21 @@ class TestStorage(TestBase):
         )
 
     def test_add_shoppingitem(self):
-        initial_shoppingItems = len(self.test_shoppinglist['items'])
-        self.test_store.add_shoppingitems(1, 1, 'sun glasses', 1)
-        final_shoppingItems = len(self.test_shoppinglist['items'])
+        """Test adding of items"""
+        initial_shoppingitems = len(self.test_shoppinglist['items'])
+        added = self.test_store.add_shoppingitems(1, 1, 'sun glasses', 1)
+        final_shoppingitems = len(self.test_shoppinglist['items'])
+        message = "sun glasses has been added"
         self.assertEqual(
             1,
-            final_shoppingItems - initial_shoppingItems,
+            final_shoppingitems - initial_shoppingitems,
             'Shopping Item not created properly')
+        self.assertEqual(added, message)
+        added2 = self.test_store.add_shoppingitems(1, 1, 'sun glasses', 1)
+        self.assertNotEqual(added2, message)
 
     def test_added_get_shoppingitem(self):
+        """Test getting a single item from a shopping list"""
         test_item = self.test_store.get_shoppingitem(1, 1, 1)
         self.assertEqual(
             test_item,
@@ -133,16 +139,18 @@ class TestStorage(TestBase):
         )
 
     def test_delete_shoppingitem(self):
-        initial_shoppingItems = len(self.test_shoppinglist['items'])
+        """Test deleting shopping items"""
+        initial_shoppingitems = len(self.test_shoppinglist['items'])
         self.test_store.remove_shoppingitem(1, 1, 1)
-        final_shoppingItems = len(self.test_shoppinglist['items'])
+        final_shoppingitems = len(self.test_shoppinglist['items'])
         self.assertEqual(
             1,
-            initial_shoppingItems-final_shoppingItems,
+            initial_shoppingitems-final_shoppingitems,
             'Items not removed'
         )
 
     def test_buy_shoppinlistitem(self):
+        """Test indication of a bought item"""
         self.test_store.buy_shoppingitem(1, 1, 1)
         bought_item = self.test_store.get_shoppingitem(1, 1, 1)
         self.assertEqual(
