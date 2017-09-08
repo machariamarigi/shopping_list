@@ -9,6 +9,7 @@
         <div class="jumbotron">
             {{ wtf.quick_form(form) }} 
         </div>
+        <p class="text-center">Don't have an account, please <a href="{{ url_for('auth.register') }}">Register</a></p>
     </div>
 
 {% endblock %}

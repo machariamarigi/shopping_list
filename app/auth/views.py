@@ -54,7 +54,11 @@ def register():
                     form.username.data, form.email.data, form.password.data)
                 flash('Account created you can now login')
                 return redirect(url_for('auth.login'))
-        return render_template('auth/register.html', form=form, title='Register')
+        return render_template(
+            'auth/register.html',
+            form=form,
+            title='Register'
+        )
     else:
         return redirect(url_for('dashboard.dashboard_page'))
 
