@@ -22,6 +22,7 @@ class User():
         }
 
     def get_details(self):
+        """method to eturn detais of a user"""
         return self.details
 
 
@@ -110,14 +111,15 @@ class Storage():
             if item['name'] == name:
                 return "Shopping list " + str(name) + " exits. Try editing it"
             if new_shoppinglist_details['id'] == item['id']:
-                new_shoppinglist_details['id'] = new_shoppinglist_details['id']
-                + 1
+                new_shoppinglist_details['id'] = (
+                    new_shoppinglist_details['id'] + 1
+                )
         user['shopping_lists'].append(new_shoppinglist_details)
         return "Shopping list " + str(name) + " Created"
 
     def get_shoppinglist(self, user_id, item_id):
         """
-            Method to return a single user item based on the user 
+            Method to return a single user item based on the user
             item's id and its user's id
         """
         single_user = self.get_single_user(user_id)
@@ -145,12 +147,15 @@ class Storage():
         for shopinglist in user['shopping_lists']:
             if shopinglist['id'] == int(shoppinglist_id):
                 curr_shopinglist = shopinglist
-                new_shoppingitem_details['id'] = len(curr_shopinglist['items']) + 1
+                new_shoppingitem_details['id'] = (
+                    len(curr_shopinglist['items']) + 1)
                 for item in curr_shopinglist['items']:
                     if item['name'] == name:
                         return "Item " + str(name) + " exits. Try editing it"
                     if new_shoppingitem_details['id'] == item['id']:
-                        new_shoppingitem_details['id'] = new_shoppingitem_details['id'] + 1
+                        new_shoppingitem_details['id'] = (
+                            new_shoppingitem_details['id'] + 1
+                        )
                 curr_shopinglist['items'].append(new_shoppingitem_details)
                 return str(name) + " has been added"
 
@@ -171,7 +176,5 @@ class Storage():
     def buy_shoppingitem(self, user_id, shoppinglist_id, item_id):
         """Method to indicate bought items"""
         item = self.get_shoppingitem(user_id, shoppinglist_id, item_id)
-        if item['bought']:
-            item['bought'] = False
-        elif not item['bought']:
+        if not item['bought']:
             item['bought'] = True

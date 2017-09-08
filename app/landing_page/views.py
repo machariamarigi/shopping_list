@@ -10,5 +10,4 @@ def landing():
     """Render the landing_page template on the / route"""
     if 'username' not in session.keys():
         return render_template('index.html')
-    else:
-        return redirect(url_for('dashboard.dashboard_page'))
+    return redirect(url_for('dashboard.dashboard_page'))

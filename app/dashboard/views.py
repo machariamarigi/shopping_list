@@ -2,9 +2,9 @@
 
 from flask import render_template, redirect, url_for, session, flash
 
+from app import store
 from . import dashboard
 from .forms import ShoppinglistForm, ShoppingitemForm
-from app import store
 
 
 @dashboard.route('/dashboard', methods=['GET', 'POST'])

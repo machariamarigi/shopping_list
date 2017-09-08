@@ -1,6 +1,5 @@
 """ Module to test the running the application """
 from flask import url_for, abort
-from flask_testing import TestCase
 
 from .basetest import TestBase
 
@@ -22,7 +21,7 @@ class TestAppRun(TestBase):
         """Method to test server errors"""
         @self.app.route('/500')
         def internal_server_error():
-            """Raise server eeeor"""
+            """Raise server error"""
             abort(500)
 
         response = self.client.get('/500')
