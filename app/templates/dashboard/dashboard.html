@@ -1,0 +1,42 @@
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "authbase.html" %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="dash-header">
+        <h1>{{ session['username'] }}'s Dashboard</h1>
+    </div>
+    <div class="jumbotron">
+        {{ wtf.quick_form(form) }}
+    </div>
+    {% if shoppinglists %}
+        <div class="row">
+            <div class="dash-table col-md-8">
+                <h1>My Shopping Lists</h1>
+                <table class="table">
+                    <tr>
+                        <th>Shopping List Name</th>
+                    </tr>
+                    {% for shoppinglist in shoppinglists %}
+                        <tr>
+                            <td><a href="{{ url_for('dashboard.view_shoppinglist', id=shoppinglist['id']) }}">{{ shoppinglist['name'] }}</a></td>
+                            <td class="edit-buttons">
+                                <button><a href="{{ url_for('dashboard.view_shoppinglist', id=shoppinglist['id']) }}">Add Items</a></button>
+                                <button class="edit"><a href="{{ url_for('dashboard.shoppinglist_edit', sh_id=shoppinglist['id']) }}">Edit</a></button>
+                                <button class="delete"><a href="{{ url_for('dashboard.delete_shoppinglist', sh_id=shoppinglist['id']) }}">Delete</a></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% else %}
+    <div class="dash-table">
+        <h1>Create new shopping lists</h1>
+    </div>
+    {% endif %}
+    {{ utils.flashed_messages() }}
+</div>
+
+{% endblock %}
