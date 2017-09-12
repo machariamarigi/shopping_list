@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/machariamarigi/shopping_list.svg?branch=master)](https://travis-ci.org/machariamarigi/shopping_list) [![Coverage Status](https://coveralls.io/repos/github/machariamarigi/shopping_list/badge.svg?branch=ch-tdd-setup)](https://coveralls.io/github/machariamarigi/shopping_list?branch=ch-tdd-setup)
+[![Build Status](https://travis-ci.org/machariamarigi/shopping_list.svg?branch=master)](https://travis-ci.org/machariamarigi/shopping_list) [![Coverage Status](https://coveralls.io/repos/github/machariamarigi/shopping_list/badge.svg?branch=master)](https://coveralls.io/github/machariamarigi/shopping_list?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # Shopping List
 
