@@ -2,9 +2,9 @@
 
 # Shopping List
 
-The innovative Shopping list app is an application that allows users to record and share things they want to spend money on meeting the needs of keeping track of their shopping lists.
+The innovative Shopping list app is an application that allows users to record and keep track of things they want to spend money on.
 
-## Intallation
+## Installation
 
 1. Clone this repo into any directory in your machine
 
@@ -33,7 +33,7 @@ Run the following command for tests and coverage:
     
 
 ## Launching the Program
-Set the FLASK_APP and FLASK_CONFIG variables as follows:
+Ensure you are on the python enviromment we set up above and set the FLASK_APP and FLASK_CONFIG variables as follows:
 
 * `export FLASK_APP=run.py`
 * `export FLASK_CONFIG=development`
