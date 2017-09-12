@@ -47,7 +47,8 @@ def shoppinglist_edit(sh_id):
         all_shoppinglist = account['shopping_lists']
         if form.validate_on_submit():
             for shoppinglist in account['shopping_lists']:
-                if shoppinglist['name'].lower() == form.name.data.strip().lower():
+                if(shoppinglist['name'].lower() ==
+                   form.name.data.strip().lower()):
                     flash('List ' + str(form.name.data) + " already exists.")
                     break
             else:
@@ -112,14 +113,18 @@ def edit_shoppingitem(id, si_id):
         account = store.current_users[session['username']]
         user_id = int(account['id'])
         item = store.get_shoppingitem(user_id, int(id), int(si_id))
+        current_name = item['name'].lower()
         form = ShoppingitemForm(dict=item)
         current_shoppinglist = store.get_shoppinglist(user_id, int(id))
         all_items = current_shoppinglist['items']
         if form.validate_on_submit():
             for item in current_shoppinglist['items']:
-                current_name = item['name'].lower()
-                if item['name'].lower() == form.name.data.strip().lower() and not current_name:
-                    flash('Item ' + str(form.name.data) + " already exists")
+                if item['name'].lower() == form.name.data.strip().lower():
+                    if current_name == form.name.data.strip().lower():
+                        item['name'] = form.name.data
+                        item['quantity'] = form.quantity.data
+                        break
+                    flash(str(form.name.data) + " already in list.")
                     break
             else:
                 item['name'] = form.name.data
