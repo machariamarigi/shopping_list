@@ -108,7 +108,7 @@ class Storage():
         user = self.get_single_user(user_id)
         new_shoppinglist_details['id'] = len(user['shopping_lists']) + 1
         for item in user['shopping_lists']:
-            if item['name'] == name:
+            if item['name'].lower() == name.lower():
                 return "Shopping list " + str(name) + " exits. Try editing it"
             if new_shoppinglist_details['id'] == item['id']:
                 new_shoppinglist_details['id'] = (
@@ -150,7 +150,7 @@ class Storage():
                 new_shoppingitem_details['id'] = (
                     len(curr_shopinglist['items']) + 1)
                 for item in curr_shopinglist['items']:
-                    if item['name'] == name:
+                    if item['name'].lower() == name.lower():
                         return "Item " + str(name) + " exits. Try editing it"
                     if new_shoppingitem_details['id'] == item['id']:
                         new_shoppingitem_details['id'] = (

@@ -17,7 +17,10 @@ def dashboard_page():
         all_shoppinglist = account['shopping_lists']
         if form.validate_on_submit():
             user_id = int(account['id'])
-            message = store.add_shoppinglist(user_id, form.name.data)
+            message = store.add_shoppinglist(
+                user_id,
+                form.name.data.strip()
+            )
             flash(message)
             return redirect(url_for('dashboard.dashboard_page'))
         return render_template(
@@ -44,7 +47,7 @@ def shoppinglist_edit(sh_id):
         all_shoppinglist = account['shopping_lists']
         if form.validate_on_submit():
             for shoppinglist in account['shopping_lists']:
-                if shoppinglist['name'] == form.name.data:
+                if shoppinglist['name'].lower() == form.name.data.strip().lower():
                     flash('List ' + str(form.name.data) + " already exists.")
                     break
             else:
@@ -85,7 +88,7 @@ def view_shoppinglist(id):
             message = store.add_shoppingitems(
                 user_id,
                 int(id),
-                form.name.data,
+                form.name.data.strip(),
                 form.quantity.data
             )
             flash(message)
@@ -114,8 +117,8 @@ def edit_shoppingitem(id, si_id):
         all_items = current_shoppinglist['items']
         if form.validate_on_submit():
             for item in current_shoppinglist['items']:
-                current_name = item['name']
-                if item['name'] == form.name.data and not current_name:
+                current_name = item['name'].lower()
+                if item['name'].lower() == form.name.data.strip().lower() and not current_name:
                     flash('Item ' + str(form.name.data) + " already exists")
                     break
             else:
