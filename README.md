@@ -29,7 +29,7 @@ The innovative Shopping list app is an application that allows users to record a
 ## Testing the application
 Run the following command for tests and coverage:
 
-* `coverage run --source=app -m py.test && coverage report`
+* `coverage run --source=app.models -m py.test && coverage report`
     
 
 ## Launching the Program
