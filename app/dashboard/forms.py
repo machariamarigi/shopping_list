@@ -3,7 +3,7 @@
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, ValidationError
 
 
@@ -26,6 +26,10 @@ class ShoppingitemForm(FlaskForm):
     """For used to create a shopping list item"""
     name = StringField('Add or edit an item', validators=[
         DataRequired(), invalidate_numbers_only])
-    quantity = StringField(
-        'Add or edit quantity of items', validators=[DataRequired()])
+    quantity = IntegerField(
+        'Add or edit quantity of items',
+        validators=[DataRequired(
+            message='This field is required and must only contain numbers'
+            )]
+    )
     submit = SubmitField('Add')
